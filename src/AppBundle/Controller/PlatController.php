@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Plat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Plat controller.
@@ -32,6 +32,32 @@ class PlatController extends Controller
     }
 
     /**
+     * Creates a new plat entity.
+     *
+     * @Route("/new", name="plat_new")
+     * @Method({"GET", "POST"})
+     */
+    public function newAction(Request $request)
+    {
+        $plat = new Plat();
+        $form = $this->createForm('AppBundle\Form\PlatType', $plat);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($plat);
+            $em->flush($plat);
+
+            return $this->redirectToRoute('plat_show', array('id' => $plat->getId()));
+        }
+
+        return $this->render('plat/new.html.twig', array(
+            'plat' => $plat,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
      * Finds and displays a plat entity.
      *
      * @Route("/{id}", name="plat_show")
@@ -39,9 +65,72 @@ class PlatController extends Controller
      */
     public function showAction(Plat $plat)
     {
+        $deleteForm = $this->createDeleteForm($plat);
 
         return $this->render('plat/show.html.twig', array(
             'plat' => $plat,
+            'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Displays a form to edit an existing plat entity.
+     *
+     * @Route("/{id}/edit", name="plat_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, Plat $plat)
+    {
+        $deleteForm = $this->createDeleteForm($plat);
+        $editForm = $this->createForm('AppBundle\Form\PlatType', $plat);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('plat_edit', array('id' => $plat->getId()));
+        }
+
+        return $this->render('plat/edit.html.twig', array(
+            'plat' => $plat,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a plat entity.
+     *
+     * @Route("/{id}", name="plat_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, Plat $plat)
+    {
+        $form = $this->createDeleteForm($plat);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($plat);
+            $em->flush($plat);
+        }
+
+        return $this->redirectToRoute('plat_index');
+    }
+
+    /**
+     * Creates a form to delete a plat entity.
+     *
+     * @param Plat $plat The plat entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Plat $plat)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('plat_delete', array('id' => $plat->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }
