@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Menu</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ menu.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ menu.titre }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ menu.prix }}</td>
+            </tr>
+            <tr>
+                <th>Ordre</th>
+                <td>{{ menu.ordre }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ menu.statut }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ menu.auteur }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('menu_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

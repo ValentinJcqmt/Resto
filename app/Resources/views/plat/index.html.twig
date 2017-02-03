@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Plats list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Statut</th>
+                <th>Flag</th>
+                <th>Auteur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plat in plats %}
+            <tr>
+                <td><a href="{{ path('plat_show', { 'id': plat.id }) }}">{{ plat.id }}</a></td>
+                <td>{{ plat.titre }}</td>
+                <td>{{ plat.description }}</td>
+                <td>{{ plat.prix }}</td>
+                <td>{{ plat.statut }}</td>
+                <td>{{ plat.flag }}</td>
+                <td>{{ plat.auteur }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('plat_show', { 'id': plat.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
