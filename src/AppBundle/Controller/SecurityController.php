@@ -19,10 +19,10 @@ class SecurityController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
-        $email = $authenticationUtils->getEmail();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', array(
-            'user_email' => $email,
+        return $this->render('login.html.twig', array(
+            'last_username' => $lastUsername,
             'error'         => $error,
         ));
     }
