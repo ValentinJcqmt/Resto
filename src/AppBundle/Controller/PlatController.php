@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Plat controller.
  *
- * @Route("plat")
+ * @Route("admin/plat")
  */
 class PlatController extends Controller
 {
