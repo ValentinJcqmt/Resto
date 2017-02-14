@@ -1,28 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="col-xs-12">
-        <h1>Liste des utilisateurs</h1>
-        <span><a href="{{ path('user_new') }}" class="btn btn-plus">Ajouter un utilisateur</a></span>
-    </div>
+    <h1>Users list</h1>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.roles }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    <div class="row">
-        <div class="col-xs-3">id</div>
-        <div class="col-xs-3">Nom</div>
-        <div class="col-xs-3">Mail</div>
-    </div>
-
-    {% for user in users %}
-        <div class="row">
-            <div class="col-xs-3"><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></div>
-            <div class="col-xs-3">{{ user.name }}</div>
-            <div class="col-xs-3">{{ user.email }}</div>
-            <div class="col-xs-3">
-                <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn btn-plus">Voir plus</a>
-                <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-edit">Modifier</a>
-            </div>
-        </div>
-    {% endfor %}
-
+    <ul>
+        <li>
+            <a href="{{ path('user_new') }}">Create a new user</a>
+        </li>
+    </ul>
 {% endblock %}
