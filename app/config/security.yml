@@ -1,38 +1,33 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
 security:
-    encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-        AppBundle\Entity\User: plaintext
 
     role_hierarchy:
         ROLE_WAITER:      [ROLE_WAITER]
         ROLE_EDITOR:      [ROLE_EDITOR]
         ROLE_REVIWER:     [ROLE_REVIEWER]
         ROLE_CHIEF:       [ROLE_CHIEF, ROLE_ADMIN]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_SUPER_ADMIN]
 
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+#    encoders:
+#        Symfony\Component\Security\Core\User\User:
+#            algorithm: bcrypt
+#            cost: 5
+#        AppBundle\Entity\User:
+#            algorithm: bcrypt
+#            cost: 5
+
     providers:
         in_memory:
             memory:
                 users:
-                    user:
-                        password: user
-                        roles: 'ROLE_USER'
-                    admin:
-                        password: admin
-                        roles: 'ROLE_ADMIN'
-
+                    superadmin:
+                        password: $2a$04$O1wayPozt0GABR5deYXaTOBWXirlCQE5kGqLl4Xlbt7VsPR.lghnu
+                        roles: 'ROLE_SUPER_ADMIN'
         user_provider:
             entity:
                 class: AppBundle:User
                 property: username
 
-
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false

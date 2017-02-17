@@ -9,7 +9,6 @@
                 <th>Id</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Password</th>
                 <th>Roles</th>
                 <th>Actions</th>
             </tr>
@@ -20,8 +19,9 @@
                 <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.roles }}</td>
+                {% for role in user.roles %}
+                  <td>{{ role }}</td>
+                {% endfor %}
                 <td>
                     <ul>
                         <li>

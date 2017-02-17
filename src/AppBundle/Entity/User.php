@@ -48,7 +48,7 @@ class User implements UserInterface
      *
      * @ORM\Column(name="roles", type="string", length=255)
      */
-    private $roles;
+    private $roles = 'ROLE_EDITOR';
 
 
     /**
@@ -112,7 +112,7 @@ class User implements UserInterface
     /**
      * Set password
      *
-     * @param string $password
+     * @param array $password
      *
      * @return User
      */
@@ -160,7 +160,7 @@ class User implements UserInterface
     /**
      * Set roles
      *
-     * @param array $roles
+     * @param string $roles
      *
      * @return User
      */
@@ -172,11 +172,11 @@ class User implements UserInterface
     /**
      * Get roles
      *
-     * @return string
+     * @return array
      */
     public function getRoles()
     {
-        return $this->roles;
+        return [$this->roles];
     }
 
     /**

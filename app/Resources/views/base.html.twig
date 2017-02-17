@@ -11,6 +11,19 @@
     <body>
         <div class="container">
             <div class="row">
+                <div class="col-xs-12">
+                    <nav class="nav">
+                        <span>Ceci est notre nav</span>
+                        <ul>
+                            <li><a href="{{ path( 'user_index' ) }}">Utilisateurs</a></li>
+                            <li><a href="{{ path( 'menu_index' ) }}">Menu</a></li>
+                            <li><a href="{{ path( 'plat_index' ) }}">Plat</a></li>
+                            <li><a href="{{ path( 'login' ) }}">Se connecter</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
                 {% block body %}{% endblock %}
                 {% block javascripts %}{% endblock %}
             </div>

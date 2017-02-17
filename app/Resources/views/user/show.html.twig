@@ -18,12 +18,10 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
                 <th>Roles</th>
-                <td>{{ user.roles }}</td>
+                {% for role in user.roles %}
+                    <td>{{ role }}</td>
+                {% endfor %}
             </tr>
         </tbody>
     </table>
